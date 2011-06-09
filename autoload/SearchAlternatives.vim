@@ -13,8 +13,17 @@
 function! SearchAlternatives#Add( starCommand, text, isWholeWordSearch )
     let l:searchPattern = ingosearch#LiteralTextToSearchPattern( a:text, a:isWholeWordSearch, '/' )
 
-    " TODO: Check for (no)magic and case-sensitivity atoms. 
-    let @/ .= (empty(@/) ? '' : '\|') . l:searchPattern
+    if empty(@/)
+	let @/ = l:searchPattern
+    else
+	" Check for (no)magic atoms in the existing search pattern and
+	" neutralize it before appending the alternative. 
+	" The case-sensitivity atoms \c and \C apply to the entire pattern;
+	" they cannot be neutralized. However, this can be used to do a
+	" case-insensitive search for alternatives by initializing the search
+	" with a pattern like /\cxyz/. 
+	let @/ .= ingosearch#NormalizeMagicness(@/) . '\|' . l:searchPattern
+    endif
 
     " The search pattern is added to the search history, as '/' or '*' would do. 
     call histadd('/', @/)
