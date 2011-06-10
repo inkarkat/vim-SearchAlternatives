@@ -22,7 +22,7 @@ function! SearchAlternatives#Add( starCommand, text, isWholeWordSearch )
 	" they cannot be neutralized. However, this can be used to do a
 	" case-insensitive search for alternatives by initializing the search
 	" with a pattern like /\cxyz/. 
-	let @/ .= ingosearch#NormalizeMagicness(@/) . '\|' . l:searchPattern
+	let @/ .= ingosearch#GetNormalizeMagicnessAtom(@/) . '\|' . l:searchPattern
     endif
 
     " The search pattern is added to the search history, as '/' or '*' would do. 
