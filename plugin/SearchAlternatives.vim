@@ -22,6 +22,7 @@
 
 " DEPENDENCIES:
 "   - Requires Vim 7.0 or higher. 
+"   - ingointegration.vim autoload script. 
 "   - SearchAlternatives.vim autoload script. 
 "   - EchoWithoutScrolling.vim (optional). 
 
@@ -38,6 +39,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS 
+"	002	12-Sep-2011	Use ingointegration#GetVisualSelection() instead
+"				of inline capture. 
 "	001	10-Jun-2011	file creation
 
 " Avoid installing twice or when in unsupported Vim version. 
@@ -64,8 +67,8 @@ nnoremap <script> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#Rem
 nnoremap <script> <Plug>SearchAlternativesGAdd :<C-U>call SearchAlternatives#Add('g*',expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
 nnoremap <script> <Plug>SearchAlternativesGRem :<C-U>call SearchAlternatives#Rem('g*',expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
 " gV avoids automatic re-selection of the Visual area in select mode. 
-vnoremap <script> <Plug>SearchAlternativesAdd  :<C-U>let save_cb=&cb<Bar>let save_reg=getreg('"')<Bar>let save_regtype=getregtype('"')<Bar>execute 'silent normal! gvy'<Bar>call SearchAlternatives#Add('gv*',@",0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<Bar>call setreg('"', save_reg, save_regtype)<Bar>let &cb=save_cb<Bar>unlet save_cb<Bar>unlet save_reg<Bar>unlet save_regtype<CR>gV
-vnoremap <script> <Plug>SearchAlternativesRem  :<C-U>let save_cb=&cb<Bar>let save_reg=getreg('"')<Bar>let save_regtype=getregtype('"')<Bar>execute 'silent normal! gvy'<Bar>call SearchAlternatives#Rem('gv*',@",0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<Bar>call setreg('"', save_reg, save_regtype)<Bar>let &cb=save_cb<Bar>unlet save_cb<Bar>unlet save_reg<Bar>unlet save_regtype<CR>gV
+vnoremap <script> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#Add('gv*', ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
+vnoremap <script> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#Rem('gv*', ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
 
 if ! hasmapto('<Plug>SearchAlternativesAdd', 'n')
     nmap <silent> <Leader>+ <Plug>SearchAlternativesAdd
