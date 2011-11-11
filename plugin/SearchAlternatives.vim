@@ -39,6 +39,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS 
+"	003	30-Sep-2011	Use <silent> for <Plug> mapping instead of
+"				default mapping. 
 "	002	12-Sep-2011	Use ingointegration#GetVisualSelection() instead
 "				of inline capture. 
 "	001	10-Jun-2011	file creation
@@ -62,31 +64,31 @@ else " fallback
 endif
 
 
-nnoremap <script> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#Add( '*',expand('<cword>'),1)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
-nnoremap <script> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#Rem( '*',expand('<cword>'),1)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
-nnoremap <script> <Plug>SearchAlternativesGAdd :<C-U>call SearchAlternatives#Add('g*',expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
-nnoremap <script> <Plug>SearchAlternativesGRem :<C-U>call SearchAlternatives#Rem('g*',expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
+nnoremap <script> <silent> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#Add( '*',expand('<cword>'),1)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
+nnoremap <script> <silent> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#Rem( '*',expand('<cword>'),1)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
+nnoremap <script> <silent> <Plug>SearchAlternativesGAdd :<C-U>call SearchAlternatives#Add('g*',expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
+nnoremap <script> <silent> <Plug>SearchAlternativesGRem :<C-U>call SearchAlternatives#Rem('g*',expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
 " gV avoids automatic re-selection of the Visual area in select mode. 
-vnoremap <script> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#Add('gv*', ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
-vnoremap <script> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#Rem('gv*', ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
+vnoremap <script> <silent> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#Add('gv*', ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
+vnoremap <script> <silent> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#Rem('gv*', ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
 
 if ! hasmapto('<Plug>SearchAlternativesAdd', 'n')
-    nmap <silent> <Leader>+ <Plug>SearchAlternativesAdd
+    nmap <Leader>+ <Plug>SearchAlternativesAdd
 endif
 if ! hasmapto('<Plug>SearchAlternativesGAdd', 'n')
-    nmap <silent> <Leader>g+ <Plug>SearchAlternativesGAdd
+    nmap <Leader>g+ <Plug>SearchAlternativesGAdd
 endif
 if ! hasmapto('<Plug>SearchAlternativesAdd', 'x')
-    xmap <silent> <Leader>+ <Plug>SearchAlternativesAdd
+    xmap <Leader>+ <Plug>SearchAlternativesAdd
 endif
 if ! hasmapto('<Plug>SearchAlternativesRem', 'n')
-    nmap <silent> <Leader>- <Plug>SearchAlternativesRem
+    nmap <Leader>- <Plug>SearchAlternativesRem
 endif
 if ! hasmapto('<Plug>SearchAlternativesGRem', 'n')
-    nmap <silent> <Leader>g- <Plug>SearchAlternativesGRem
+    nmap <Leader>g- <Plug>SearchAlternativesGRem
 endif
 if ! hasmapto('<Plug>SearchAlternativesRem', 'x')
-    xmap <silent> <Leader>- <Plug>SearchAlternativesRem
+    xmap <Leader>- <Plug>SearchAlternativesRem
 endif
 
 " vim: set sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
