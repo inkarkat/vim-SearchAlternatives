@@ -1,39 +1,12 @@
-" SearchAlternatives.vim: Add / subtract alternatives from the search pattern. 
+" SearchAlternatives.vim: Add / subtract alternatives to / from the search pattern. 
 "
-" DESCRIPTION:
-" USAGE:
-"<Leader>+		Add the current whole \<word\> as an alternative to the
-"			search pattern. 
-"<Leader>g+		Add the current word as an alternative to the search
-"			pattern. 
-"{Visual}<Leader>+	Add the current selection as an alternative to the
-"			search pattern. 
-"
-"<Leader>-		Remove the current whole \<word\> from the alternatives
-"			in the search pattern. 
-"<Leader>g-		Remove the current word from the alternatives in the
-"			search pattern. 
-"{Visual}<Leader>-	Remove the current selection from the alternatives in
-"			the search pattern. 
-"
-" INSTALLATION:
-"   Put the script into your user or system Vim plugin directory (e.g.
-"   ~/.vim/plugin). 
-
 " DEPENDENCIES:
 "   - Requires Vim 7.0 or higher. 
 "   - ingointegration.vim autoload script. 
 "   - SearchAlternatives.vim autoload script. 
 "   - EchoWithoutScrolling.vim (optional). 
 
-" CONFIGURATION:
-" INTEGRATION:
-" LIMITATIONS:
-" ASSUMPTIONS:
-" KNOWN PROBLEMS:
-" TODO:
-"
-" Copyright: (C) 2011 Ingo Karkat
+" Copyright: (C) 2011-2012 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'. 
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
