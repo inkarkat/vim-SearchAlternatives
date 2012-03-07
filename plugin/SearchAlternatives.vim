@@ -1,24 +1,27 @@
-" SearchAlternatives.vim: Add / subtract alternatives to / from the search pattern. 
+" SearchAlternatives.vim: Add / subtract alternatives to / from the search pattern.
 "
 " DEPENDENCIES:
-"   - Requires Vim 7.0 or higher. 
-"   - ingointegration.vim autoload script. 
-"   - SearchAlternatives.vim autoload script. 
-"   - EchoWithoutScrolling.vim (optional). 
+"   - Requires Vim 7.0 or higher.
+"   - ingointegration.vim autoload script.
+"   - SearchAlternatives.vim autoload script.
+"   - EchoWithoutScrolling.vim (optional).
 
 " Copyright: (C) 2011-2012 Ingo Karkat
-"   The VIM LICENSE applies to this script; see ':help copyright'. 
+"   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
-" REVISION	DATE		REMARKS 
+" REVISION	DATE		REMARKS
+"	004	08-Mar-2012	Rename #Add() to #AddLiteralText() and factor
+"				out #AddPattern(); same for #Rem().
+"				Remove unused starCommand argument.
 "	003	30-Sep-2011	Use <silent> for <Plug> mapping instead of
-"				default mapping. 
+"				default mapping.
 "	002	12-Sep-2011	Use ingointegration#GetVisualSelection() instead
-"				of inline capture. 
+"				of inline capture.
 "	001	10-Jun-2011	file creation
 
-" Avoid installing twice or when in unsupported Vim version. 
+" Avoid installing twice or when in unsupported Vim version.
 if exists('g:loaded_SearchAlternatives') || (v:version < 700)
     finish
 endif
@@ -26,8 +29,8 @@ let g:loaded_SearchAlternatives = 1
 
 "- integration ----------------------------------------------------------------
 " Use EchoWithoutScrolling#Echo to emulate the built-in truncation of the search
-" pattern (via ':set shortmess+=T'). 
-silent! call EchoWithoutScrolling#MaxLength()	" Execute a function to force autoload. 
+" pattern (via ':set shortmess+=T').
+silent! call EchoWithoutScrolling#MaxLength()	" Execute a function to force autoload.
 if exists('*EchoWithoutScrolling#Echo')
     cnoremap <SID>EchoSearchPatternForward  call EchoWithoutScrolling#Echo(EchoWithoutScrolling#TranslateLineBreaks('/'.@/))
     cnoremap <SID>EchoSearchPatternBackward call EchoWithoutScrolling#Echo(EchoWithoutScrolling#TranslateLineBreaks('?'.@/))
@@ -37,13 +40,13 @@ else " fallback
 endif
 
 
-nnoremap <script> <silent> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#Add( '*',expand('<cword>'),1)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
-nnoremap <script> <silent> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#Rem( '*',expand('<cword>'),1)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
-nnoremap <script> <silent> <Plug>SearchAlternativesGAdd :<C-U>call SearchAlternatives#Add('g*',expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
-nnoremap <script> <silent> <Plug>SearchAlternativesGRem :<C-U>call SearchAlternatives#Rem('g*',expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
-" gV avoids automatic re-selection of the Visual area in select mode. 
-vnoremap <script> <silent> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#Add('gv*', ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
-vnoremap <script> <silent> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#Rem('gv*', ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
+nnoremap <script> <silent> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#AddLiteralText(expand('<cword>'),1)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
+nnoremap <script> <silent> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#RemLiteralText(expand('<cword>'),1)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
+nnoremap <script> <silent> <Plug>SearchAlternativesGAdd :<C-U>call SearchAlternatives#AddLiteralText(expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
+nnoremap <script> <silent> <Plug>SearchAlternativesGRem :<C-U>call SearchAlternatives#RemLiteralText(expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
+" gV avoids automatic re-selection of the Visual area in select mode.
+vnoremap <script> <silent> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#AddLiteralText( ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
+vnoremap <script> <silent> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#RemLiteralText( ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
 
 if ! hasmapto('<Plug>SearchAlternativesAdd', 'n')
     nmap <Leader>+ <Plug>SearchAlternativesAdd
