@@ -1,0 +1,97 @@
+*SearchAlternatives.txt*    Add / subtract alternatives to / from the search pattern.
+
+		    SEARCH ALTERNATIVES    by Ingo Karkat
+								*SearchAlternatives.vim*
+description			|SearchAlternatives-description|
+usage				|SearchAlternatives-usage|
+installation			|SearchAlternatives-installation|
+configuration			|SearchAlternatives-configuration|
+integration			|SearchAlternatives-integration|
+limitations			|SearchAlternatives-limitations|
+known problems			|SearchAlternatives-known-problems|
+todo				|SearchAlternatives-todo|
+history				|SearchAlternatives-history|
+
+==============================================================================
+DESCRIPTION				       *SearchAlternatives-description*
+
+This plugin ...
+
+HOW IT WORKS								     *
+
+RELATED WORKS								     *
+
+- Add to Word Search (vimscript #3955) can add the keyword under the cursor to
+  the search pattern and search forward / backward like * / #.
+
+==============================================================================
+USAGE						     *SearchAlternatives-usage*
+
+								   *<Leader>+*
+<Leader>+		Add the current whole \<word\> as an alternative to the
+			search pattern. 
+								  *<Leader>g+*
+<Leader>g+		Add the current word as an alternative to the search
+			pattern. 
+							   *{Visual}<Leader>+*
+{Visual}<Leader>+	Add the current selection as an alternative to the
+			search pattern. 
+
+								   *<Leader>-*
+<Leader>-		Remove the current whole \<word\> from the alternatives
+			in the search pattern. 
+								  *<Leader>g-*
+<Leader>g-		Remove the current word from the alternatives in the
+			search pattern. 
+							   *{Visual}<Leader>-*
+{Visual}<Leader>-	Remove the current selection from the alternatives in
+			the search pattern. 
+
+EXAMPLE						   *SearchAlternatives-example*
+
+==============================================================================
+INSTALLATION				      *SearchAlternatives-installation*
+
+This script is packaged as a |vimball|. If you have the "gunzip" decompressor
+in your PATH, simply edit the *.vba.gz package in Vim; otherwise, decompress
+the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
+vimball or via the |:UseVimball| command. >
+    vim SearchAlternatives.vba.gz
+    :so %
+To uninstall, use the |:RmVimball| command. 
+
+DEPENDENCIES				      *SearchAlternatives-dependencies*
+
+- Requires Vim 7.0 or higher. 
+
+==============================================================================
+CONFIGURATION				     *SearchAlternatives-configuration*
+
+==============================================================================
+INTEGRATION				       *SearchAlternatives-integration*
+
+==============================================================================
+LIMITATIONS				       *SearchAlternatives-limitations*
+
+KNOWN PROBLEMS				    *SearchAlternatives-known-problems*
+
+TODO						      *SearchAlternatives-todo*
+
+IDEAS						     *SearchAlternatives-ideas*
+
+==============================================================================
+HISTORY						   *SearchAlternatives-history*
+
+1.00	02-Mar-2012
+First published version. 
+
+0.01	10-Jun-2011
+Started development. 
+
+==============================================================================
+Copyright: (C) 2011-2012 Ingo Karkat
+The VIM LICENSE applies to this script; see |copyright|. 
+
+Maintainer:	Ingo Karkat <ingo@karkat.de>
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:
