@@ -29,23 +29,31 @@ USAGE						     *SearchAlternatives-usage*
 
 								   *<Leader>+*
 <Leader>+		Add the current whole \<word\> as an alternative to the
-			search pattern. 
+			search pattern.
 								  *<Leader>g+*
 <Leader>g+		Add the current word as an alternative to the search
-			pattern. 
+			pattern.
 							   *{Visual}<Leader>+*
 {Visual}<Leader>+	Add the current selection as an alternative to the
-			search pattern. 
+			search pattern.
 
 								   *<Leader>-*
 <Leader>-		Remove the current whole \<word\> from the alternatives
-			in the search pattern. 
+			in the search pattern.
 								  *<Leader>g-*
 <Leader>g-		Remove the current word from the alternatives in the
-			search pattern. 
+			search pattern.
 							   *{Visual}<Leader>-*
 {Visual}<Leader>-	Remove the current selection from the alternatives in
-			the search pattern. 
+			the search pattern.
+
+								  *:SearchAdd*
+:SearchAdd {expr}	Add {expr} as an alternative to the search pattern.
+							       *:SearchRemove*
+:SearchRemove {expr}	Remove {expr} from the alternatives in the search
+			pattern.
+:[N]SearchRemove	Remove the [N]'th / last alternative from the
+			alternatives in the search pattern.
 
 EXAMPLE						   *SearchAlternatives-example*
 
@@ -58,11 +66,11 @@ the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
 vimball or via the |:UseVimball| command. >
     vim SearchAlternatives.vba.gz
     :so %
-To uninstall, use the |:RmVimball| command. 
+To uninstall, use the |:RmVimball| command.
 
 DEPENDENCIES				      *SearchAlternatives-dependencies*
 
-- Requires Vim 7.0 or higher. 
+- Requires Vim 7.0 or higher.
 
 ==============================================================================
 CONFIGURATION				     *SearchAlternatives-configuration*
@@ -83,14 +91,14 @@ IDEAS						     *SearchAlternatives-ideas*
 HISTORY						   *SearchAlternatives-history*
 
 1.00	02-Mar-2012
-First published version. 
+First published version.
 
 0.01	10-Jun-2011
-Started development. 
+Started development.
 
 ==============================================================================
 Copyright: (C) 2011-2012 Ingo Karkat
-The VIM LICENSE applies to this script; see |copyright|. 
+The VIM LICENSE applies to this script; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
 ==============================================================================
