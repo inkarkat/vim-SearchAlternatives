@@ -29,10 +29,10 @@ USAGE						     *SearchAlternatives-usage*
 
 								   *<Leader>+*
 <Leader>+		Add the current whole \<word\> as an alternative to the
-			search pattern.
+			search pattern, similar to the |star| command.
 								  *<Leader>g+*
 <Leader>g+		Add the current word as an alternative to the search
-			pattern.
+			pattern, similar to the |gstar| command.
 							   *{Visual}<Leader>+*
 {Visual}<Leader>+	Add the current selection as an alternative to the
 			search pattern.
@@ -90,7 +90,7 @@ IDEAS						     *SearchAlternatives-ideas*
 ==============================================================================
 HISTORY						   *SearchAlternatives-history*
 
-1.00	02-Mar-2012
+GOAL
 First published version.
 
 0.01	10-Jun-2011
