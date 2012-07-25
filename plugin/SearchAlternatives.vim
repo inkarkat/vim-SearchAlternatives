@@ -12,6 +12,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	005	08-Mar-2012	ENH: Add :SearchAdd and :SearchRemove commands.
 "	004	08-Mar-2012	Rename #Add() to #AddLiteralText() and factor
 "				out #AddPattern(); same for #Rem().
 "				Remove unused starCommand argument.
@@ -28,17 +29,24 @@ endif
 let g:loaded_SearchAlternatives = 1
 
 "- integration ----------------------------------------------------------------
+
 " Use EchoWithoutScrolling#Echo to emulate the built-in truncation of the search
 " pattern (via ':set shortmess+=T').
 silent! call EchoWithoutScrolling#MaxLength()	" Execute a function to force autoload.
 if exists('*EchoWithoutScrolling#Echo')
     cnoremap <SID>EchoSearchPatternForward  call EchoWithoutScrolling#Echo(EchoWithoutScrolling#TranslateLineBreaks('/'.@/))
-    cnoremap <SID>EchoSearchPatternBackward call EchoWithoutScrolling#Echo(EchoWithoutScrolling#TranslateLineBreaks('?'.@/))
 else " fallback
     cnoremap <SID>EchoSearchPatternForward  echo '/'.@/
-    cnoremap <SID>EchoSearchPatternBackward echo '?'.@/
 endif
 
+
+"- commands --------------------------------------------------------------------
+
+command!        -nargs=1 -complete=expression SearchAdd        call SearchAlternatives#AddCommand(<q-args>)
+command! -count -nargs=? -complete=expression SearchRemove     call SearchAlternatives#RemCommand(<count>, <q-args>)
+
+
+"- mappings --------------------------------------------------------------------
 
 nnoremap <script> <silent> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#AddLiteralText(expand('<cword>'),1)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
 nnoremap <script> <silent> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#RemLiteralText(expand('<cword>'),1)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
