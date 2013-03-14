@@ -1,23 +1,25 @@
 *SearchAlternatives.txt*    Add / subtract alternatives to / from the search pattern.
 
 		    SEARCH ALTERNATIVES    by Ingo Karkat
-								*SearchAlternatives.vim*
+						      *SearchAlternatives.vim*
 description			|SearchAlternatives-description|
 usage				|SearchAlternatives-usage|
 installation			|SearchAlternatives-installation|
-configuration			|SearchAlternatives-configuration|
-integration			|SearchAlternatives-integration|
 limitations			|SearchAlternatives-limitations|
 known problems			|SearchAlternatives-known-problems|
 todo				|SearchAlternatives-todo|
 history				|SearchAlternatives-history|
 
 ==============================================================================
-DESCRIPTION				       *SearchAlternatives-description*
+DESCRIPTION				      *SearchAlternatives-description*
 
-This plugin ...
-
-HOW IT WORKS								     *
+This plugin provides mappings and commands to add and subtract alternative
+branches to the current search pattern. Currently searching for "foo," but
+also want to find matches for "bar"? You could type /foo\|bar<CR> or
+/<C-R>/\|bar<CR>, but once you want to limit the search to whole \<words\>
+(like the |star| command), and juggle several alternatives, adding and
+dropping them as you search, this plugin is quicker than manually editing the
+search command-line (which you can still do).
 
 RELATED WORKS								     *
 
@@ -25,8 +27,7 @@ RELATED WORKS								     *
   the search pattern and search forward / backward like * / #.
 
 ==============================================================================
-USAGE						     *SearchAlternatives-usage*
-
+USAGE						    *SearchAlternatives-usage*
 								   *<Leader>+*
 <Leader>+		Add the current whole \<word\> as an alternative to the
 			search pattern, similar to the |star| command.
@@ -55,10 +56,8 @@ USAGE						     *SearchAlternatives-usage*
 :[N]SearchRemove	Remove the [N]'th / last alternative from the
 			alternatives in the search pattern.
 
-EXAMPLE						   *SearchAlternatives-example*
-
 ==============================================================================
-INSTALLATION				      *SearchAlternatives-installation*
+INSTALLATION				     *SearchAlternatives-installation*
 
 This script is packaged as a |vimball|. If you have the "gunzip" decompressor
 in your PATH, simply edit the *.vba.gz package in Vim; otherwise, decompress
@@ -68,29 +67,23 @@ vimball or via the |:UseVimball| command. >
     :so %
 To uninstall, use the |:RmVimball| command.
 
-DEPENDENCIES				      *SearchAlternatives-dependencies*
+DEPENDENCIES				     *SearchAlternatives-dependencies*
 
 - Requires Vim 7.0 or higher.
 
 ==============================================================================
-CONFIGURATION				     *SearchAlternatives-configuration*
+LIMITATIONS				      *SearchAlternatives-limitations*
+
+KNOWN PROBLEMS				   *SearchAlternatives-known-problems*
+
+TODO						     *SearchAlternatives-todo*
+
+IDEAS						    *SearchAlternatives-ideas*
 
 ==============================================================================
-INTEGRATION				       *SearchAlternatives-integration*
+HISTORY						  *SearchAlternatives-history*
 
-==============================================================================
-LIMITATIONS				       *SearchAlternatives-limitations*
-
-KNOWN PROBLEMS				    *SearchAlternatives-known-problems*
-
-TODO						      *SearchAlternatives-todo*
-
-IDEAS						     *SearchAlternatives-ideas*
-
-==============================================================================
-HISTORY						   *SearchAlternatives-history*
-
-GOAL
+1.00	26-Jul-2012
 First published version.
 
 0.01	10-Jun-2011
