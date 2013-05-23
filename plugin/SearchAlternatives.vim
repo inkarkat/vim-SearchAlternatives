@@ -12,6 +12,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.01.006	05-Nov-2012	Remove -complete=expression; it's not useful for
+"				completing regexp patterns.
 "   1.00.005	08-Mar-2012	ENH: Add :SearchAdd and :SearchRemove commands.
 "	004	08-Mar-2012	Rename #Add() to #AddLiteralText() and factor
 "				out #AddPattern(); same for #Rem().
@@ -42,8 +44,8 @@ endif
 
 "- commands --------------------------------------------------------------------
 
-command!        -nargs=1 -complete=expression SearchAdd        call SearchAlternatives#AddCommand(<q-args>)
-command! -count -nargs=? -complete=expression SearchRemove     call SearchAlternatives#RemCommand(<count>, <q-args>)
+command!        -nargs=1 SearchAdd      call SearchAlternatives#AddCommand(<q-args>)
+command! -count -nargs=? SearchRemove   call SearchAlternatives#RemCommand(<count>, <q-args>)
 
 
 "- mappings --------------------------------------------------------------------
