@@ -1,0 +1,5 @@
+autoload/ingointegration.vim
+autoload/ingosearch.vim
+autoload/SearchAlternatives.vim
+plugin/SearchAlternatives.vim
+doc/SearchAlternatives.txt
