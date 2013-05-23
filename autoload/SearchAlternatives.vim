@@ -9,7 +9,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
-"	006	22-Mar-2012	BUG: Missing closing parenthesis caused E116.
+"   1.00.006	22-Mar-2012	BUG: Missing closing parenthesis caused E116.
 "				FIX: Must split only on \|, but not on \\|.
 "	005	08-Mar-2012	ENH: Add :SearchAdd and :SearchRemove commands.
 "	004	08-Mar-2012	Rename #Add() to #AddLiteralText() and factor
