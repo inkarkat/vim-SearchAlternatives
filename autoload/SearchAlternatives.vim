@@ -1,14 +1,15 @@
 " SearchAlternatives.vim: Add / subtract alternatives from the search pattern.
 "
 " DEPENDENCIES:
-"   - ingosearch.vim autoload script.
+"   - ingo/regexp/magic.vim autoload script.
 "
-" Copyright: (C) 2011-2012 Ingo Karkat
+" Copyright: (C) 2011-2013 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.01.007	24-May-2013	Move ingosearch.vim to ingo-library.
 "   1.00.006	22-Mar-2012	BUG: Missing closing parenthesis caused E116.
 "				FIX: Must split only on \|, but not on \\|.
 "	005	08-Mar-2012	ENH: Add :SearchAdd and :SearchRemove commands.
@@ -36,7 +37,7 @@ function! SearchAlternatives#AddPattern( searchPattern )
 	" they cannot be neutralized. However, this can be used to do a
 	" case-insensitive search for alternatives by initializing the search
 	" with a pattern like /\cxyz/.
-	let @/ .= ingosearch#GetNormalizeMagicnessAtom(@/) . '\|' . a:searchPattern
+	let @/ .= ingo#regexp#magic#GetNormalizeMagicnessAtom(@/) . '\|' . a:searchPattern
     endif
 
     " The search pattern is added to the search history, as '/' or '*' would do.
@@ -44,10 +45,10 @@ function! SearchAlternatives#AddPattern( searchPattern )
 endfunction
 function! s:SplitIntoAlternatives( pattern )
     let l:pattern = a:pattern
-    if ingosearch#HasMagicAtoms(l:pattern)
+    if ingo#regexp#magic#HasMagicAtoms(l:pattern)
 	" Also account for different representations of the same pattern, e.g.
 	" \V vs. individual escaping.
-	let l:pattern = ingosearch#NormalizeMagicness(l:pattern)
+	let l:pattern = ingo#regexp#magic#Normalize(l:pattern)
     endif
 
     " Split only on \|, but not on \\|.
@@ -74,10 +75,10 @@ function! SearchAlternatives#RemPattern( searchPattern )
 endfunction
 
 function! SearchAlternatives#AddLiteralText( text, isWholeWordSearch )
-    call SearchAlternatives#AddPattern(ingosearch#LiteralTextToSearchPattern( a:text, a:isWholeWordSearch, '/'))
+    call SearchAlternatives#AddPattern(ingo#regexp#FromLiteralText( a:text, a:isWholeWordSearch, '/'))
 endfunction
 function! SearchAlternatives#RemLiteralText( text, isWholeWordSearch )
-    if ! SearchAlternatives#RemPattern(ingosearch#LiteralTextToSearchPattern( a:text, a:isWholeWordSearch, '/' ))
+    if ! SearchAlternatives#RemPattern(ingo#regexp#FromLiteralText( a:text, a:isWholeWordSearch, '/' ))
 	" The text wasn't found in the search pattern; inform the user via a
 	" bell.
 	execute "normal! \<C-\>\<C-n>\<Esc>"
@@ -118,7 +119,7 @@ function! SearchAlternatives#RemCommand( patternCount, searchPattern )
 	    return
 	endif
     else
-	let l:searchPattern = (ingosearch#HasMagicAtoms(a:searchPattern) ? ingosearch#NormalizeMagicness(a:searchPattern) : a:searchPattern)
+	let l:searchPattern = (ingo#regexp#magic#HasMagicAtoms(a:searchPattern) ? ingo#regexp#magic#Normalize(a:searchPattern) : a:searchPattern)
     endif
 
     if SearchAlternatives#RemPattern(l:searchPattern)
