@@ -2,16 +2,18 @@
 "
 " DEPENDENCIES:
 "   - Requires Vim 7.0 or higher.
-"   - ingointegration.vim autoload script.
+"   - ingo/selection.vim autoload script
 "   - SearchAlternatives.vim autoload script.
 "   - EchoWithoutScrolling.vim (optional).
 
-" Copyright: (C) 2011-2012 Ingo Karkat
+" Copyright: (C) 2011-2013 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.01.007	24-May-2013	Move ingointegration#GetVisualSelection() into
+"				ingo-library.
 "   1.01.006	05-Nov-2012	Remove -complete=expression; it's not useful for
 "				completing regexp patterns.
 "   1.00.005	08-Mar-2012	ENH: Add :SearchAdd and :SearchRemove commands.
@@ -55,8 +57,8 @@ nnoremap <script> <silent> <Plug>SearchAlternativesRem  :<C-U>call SearchAlterna
 nnoremap <script> <silent> <Plug>SearchAlternativesGAdd :<C-U>call SearchAlternatives#AddLiteralText(expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
 nnoremap <script> <silent> <Plug>SearchAlternativesGRem :<C-U>call SearchAlternatives#RemLiteralText(expand('<cword>'),0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>
 " gV avoids automatic re-selection of the Visual area in select mode.
-vnoremap <script> <silent> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#AddLiteralText( ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
-vnoremap <script> <silent> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#RemLiteralText( ingointegration#GetVisualSelection(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
+vnoremap <script> <silent> <Plug>SearchAlternativesAdd  :<C-U>call SearchAlternatives#AddLiteralText( ingo#selection#Get(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
+vnoremap <script> <silent> <Plug>SearchAlternativesRem  :<C-U>call SearchAlternatives#RemLiteralText( ingo#selection#Get(), 0)<Bar>if &hlsearch<Bar>set hlsearch<Bar>endif<Bar><SID>EchoSearchPatternForward<CR>gV
 
 if ! hasmapto('<Plug>SearchAlternativesAdd', 'n')
     nmap <Leader>+ <Plug>SearchAlternativesAdd
