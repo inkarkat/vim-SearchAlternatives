@@ -95,10 +95,10 @@ function! s:ErrorMsg( text )
     echohl None
 endfunction
 function! s:EchoSearchPattern()
-    " Note: We do not use the EchoWithoutScrolling#Echo function even if
-    " available, because for an Ex command, it makes more sense to show the
-    " entire pattern, even if it causes the hit-enter prompt. (The user has just
-    " acknowledged the command-line via <CR> anyhow.)
+    " Note: We do not use the ingo#avoidprompt#Echo function, because for an Ex
+    " command, it makes more sense to show the entire pattern, even if it causes
+    " the hit-enter prompt. (The user has just acknowledged the command-line via
+    " <CR> anyhow.)
     echo '/'.@/
 endfunction
 function! SearchAlternatives#AddCommand( searchPattern )
