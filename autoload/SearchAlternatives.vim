@@ -2,6 +2,7 @@
 "
 " DEPENDENCIES:
 "   - ingo/regexp/magic.vim autoload script.
+"   - ingo/str.vim autoload script
 "
 " Copyright: (C) 2011-2013 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -9,6 +10,9 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.10.008	19-Jun-2013	ENH: Blockwise <Leader>+ / <Leader>- add /
+"				remove each partial selected trimmed line as a
+"				separate search alternative.
 "   1.01.007	24-May-2013	Move ingosearch.vim to ingo-library.
 "   1.00.006	22-Mar-2012	BUG: Missing closing parenthesis caused E116.
 "				FIX: Must split only on \|, but not on \\|.
@@ -74,11 +78,31 @@ function! SearchAlternatives#RemPattern( searchPattern )
     return 1
 endfunction
 
-function! SearchAlternatives#AddLiteralText( text, isWholeWordSearch )
-    call SearchAlternatives#AddPattern(ingo#regexp#FromLiteralText( a:text, a:isWholeWordSearch, '/'))
+function! s:TrimmedLines( text )
+    return filter(map(split(a:text, '\n'), 'ingo#str#Trim(v:val)'), '! empty(v:val)')
 endfunction
-function! SearchAlternatives#RemLiteralText( text, isWholeWordSearch )
-    if ! SearchAlternatives#RemPattern(ingo#regexp#FromLiteralText( a:text, a:isWholeWordSearch, '/' ))
+function! SearchAlternatives#AddLiteralText( text, mode, isWholeWordSearch )
+    if a:mode ==# "\<C-v>"
+	for l:line in s:TrimmedLines(a:text)
+	    call SearchAlternatives#AddPattern(ingo#regexp#FromLiteralText(l:line, a:isWholeWordSearch, '/'))
+	endfor
+    else
+	call SearchAlternatives#AddPattern(ingo#regexp#FromLiteralText(a:text, a:isWholeWordSearch, '/'))
+    endif
+endfunction
+function! SearchAlternatives#RemLiteralText( text, mode, isWholeWordSearch )
+    if a:mode ==# "\<C-v>"
+	let l:success = 0
+	for l:line in s:TrimmedLines(a:text)
+	    if SearchAlternatives#RemPattern(ingo#regexp#FromLiteralText(l:line, a:isWholeWordSearch, '/'))
+		let l:success = 1
+	    endif
+	endfor
+    else
+	let l:success = SearchAlternatives#RemPattern(ingo#regexp#FromLiteralText(a:text, a:isWholeWordSearch, '/'))
+    endif
+
+    if ! l:success
 	" The text wasn't found in the search pattern; inform the user via a
 	" bell.
 	execute "normal! \<C-\>\<C-n>\<Esc>"
