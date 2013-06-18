@@ -12,7 +12,8 @@
 " REVISION	DATE		REMARKS
 "   1.10.008	19-Jun-2013	ENH: Blockwise <Leader>+ / <Leader>- add /
 "				remove each partial selected trimmed line as a
-"				separate search alternative.
+"				separate search alternative, or individual words
+"				when a single line is blockwise-selected.
 "   1.01.007	24-May-2013	Move ingosearch.vim to ingo-library.
 "   1.00.006	22-Mar-2012	BUG: Missing closing parenthesis caused E116.
 "				FIX: Must split only on \|, but not on \\|.
@@ -83,9 +84,15 @@ function! s:TrimmedLines( text )
 endfunction
 function! SearchAlternatives#AddLiteralText( text, mode, isWholeWordSearch )
     if a:mode ==# "\<C-v>"
-	for l:line in s:TrimmedLines(a:text)
-	    call SearchAlternatives#AddPattern(ingo#regexp#FromLiteralText(l:line, a:isWholeWordSearch, '/'))
-	endfor
+	if a:text =~# '\n'
+	    for l:line in s:TrimmedLines(a:text)
+		call SearchAlternatives#AddPattern(ingo#regexp#FromLiteralText(l:line, a:isWholeWordSearch, '/'))
+	    endfor
+	else
+	    for l:word in split(a:text, '\s\+')
+		call SearchAlternatives#AddPattern(ingo#regexp#FromLiteralText(l:word, 1, '/'))
+	    endfor
+	endif
     else
 	call SearchAlternatives#AddPattern(ingo#regexp#FromLiteralText(a:text, a:isWholeWordSearch, '/'))
     endif
@@ -93,11 +100,19 @@ endfunction
 function! SearchAlternatives#RemLiteralText( text, mode, isWholeWordSearch )
     if a:mode ==# "\<C-v>"
 	let l:success = 0
-	for l:line in s:TrimmedLines(a:text)
-	    if SearchAlternatives#RemPattern(ingo#regexp#FromLiteralText(l:line, a:isWholeWordSearch, '/'))
-		let l:success = 1
-	    endif
-	endfor
+	if a:text =~# '\n'
+	    for l:line in s:TrimmedLines(a:text)
+		if SearchAlternatives#RemPattern(ingo#regexp#FromLiteralText(l:line, a:isWholeWordSearch, '/'))
+		    let l:success = 1
+		endif
+	    endfor
+	else
+	    for l:word in split(a:text, '\s\+')
+		if SearchAlternatives#RemPattern(ingo#regexp#FromLiteralText(l:word, 1, '/'))
+		    let l:success = 1
+		endif
+	    endfor
+	endif
     else
 	let l:success = SearchAlternatives#RemPattern(ingo#regexp#FromLiteralText(a:text, a:isWholeWordSearch, '/'))
     endif
