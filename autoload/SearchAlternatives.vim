@@ -1,7 +1,8 @@
 " SearchAlternatives.vim: Add / subtract alternatives from the search pattern.
 "
 " DEPENDENCIES:
-"   - ingo/regexp/magic.vim autoload script.
+"   - ingo/collections.vim autoload script
+"   - ingo/regexp/magic.vim autoload script
 "   - ingo/str.vim autoload script
 "
 " Copyright: (C) 2011-2013 Ingo Karkat
@@ -80,13 +81,16 @@ function! SearchAlternatives#RemPattern( searchPattern )
 endfunction
 
 function! s:TrimmedLines( text )
-    return filter(map(split(a:text, '\n'), 'ingo#str#Trim(v:val)'), '! empty(v:val)')
+    return ingo#collections#UniqueStable(filter(map(split(a:text, '\n'), 'ingo#str#Trim(v:val)'), '! empty(v:val)'))
+endfunction
+function! s:IsFirstSelectedLineSurroundedByNonKeywords()
+    return search('\%' . line("'<") . 'l\%(^\|\%(\k\@!.\)\)\s*\%' . col("'<") . 'c.*\%V.\%($\|\%V\@!\%(\k\@!.\)\)', 'bcnW')
 endfunction
 function! SearchAlternatives#AddLiteralText( text, mode, isWholeWordSearch )
     if a:mode ==# "\<C-v>"
 	if a:text =~# '\n'
 	    for l:line in s:TrimmedLines(a:text)
-		call SearchAlternatives#AddPattern(ingo#regexp#FromLiteralText(l:line, a:isWholeWordSearch, '/'))
+		call SearchAlternatives#AddPattern(ingo#regexp#FromLiteralText(l:line, s:IsFirstSelectedLineSurroundedByNonKeywords(), '/'))
 	    endfor
 	else
 	    for l:word in split(a:text, '\s\+')
@@ -102,7 +106,7 @@ function! SearchAlternatives#RemLiteralText( text, mode, isWholeWordSearch )
 	let l:success = 0
 	if a:text =~# '\n'
 	    for l:line in s:TrimmedLines(a:text)
-		if SearchAlternatives#RemPattern(ingo#regexp#FromLiteralText(l:line, a:isWholeWordSearch, '/'))
+		if SearchAlternatives#RemPattern(ingo#regexp#FromLiteralText(l:line, s:IsFirstSelectedLineSurroundedByNonKeywords(), '/'))
 		    let l:success = 1
 		endif
 	    endfor
