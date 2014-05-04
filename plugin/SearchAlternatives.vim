@@ -12,6 +12,9 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.10.010	20-Jun-2013	ENH: Implement command completion that offers
+"				existing alternatives (to remove or
+"				clone-and-modify them).
 "   1.10.009	19-Jun-2013	ENH: Blockwise <Leader>+ / <Leader>- add /
 "				remove each partial selected trimmed line as a
 "				separate search alternative.
@@ -45,8 +48,8 @@ cnoremap <SID>EchoSearchPatternForward  call ingo#avoidprompt#EchoAsSingleLine('
 
 "- commands --------------------------------------------------------------------
 
-command!        -nargs=1 SearchAdd      call SearchAlternatives#AddCommand(<q-args>)
-command! -count -nargs=? SearchRemove   call SearchAlternatives#RemCommand(<count>, <q-args>)
+command!        -nargs=1 -complete=customlist,SearchAlternatives#Complete SearchAdd      call SearchAlternatives#AddCommand(<q-args>)
+command! -count -nargs=? -complete=customlist,SearchAlternatives#Complete SearchRemove   call SearchAlternatives#RemCommand(<count>, <q-args>)
 
 
 "- mappings --------------------------------------------------------------------
