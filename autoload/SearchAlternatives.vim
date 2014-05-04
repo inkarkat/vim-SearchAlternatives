@@ -11,6 +11,9 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.10.009	20-Jun-2013	ENH: Implement command completion that offers
+"				existing alternatives (to remove or
+"				clone-and-modify them).
 "   1.10.008	19-Jun-2013	ENH: Blockwise <Leader>+ / <Leader>- add /
 "				remove each partial selected trimmed line as a
 "				separate search alternative, or individual words
@@ -32,6 +35,8 @@
 "				care, since there is no penalty when multiple
 "				branches match.
 "	001	10-Jun-2011	file creation
+let s:save_cpo = &cpo
+set cpo&vim
 
 function! SearchAlternatives#AddPattern( searchPattern )
     if empty(@/)
@@ -81,7 +86,12 @@ function! SearchAlternatives#RemPattern( searchPattern )
 endfunction
 
 function! s:TrimmedLines( text )
-    return ingo#collections#UniqueStable(filter(map(split(a:text, '\n'), 'ingo#str#Trim(v:val)'), '! empty(v:val)'))
+    return ingo#collections#UniqueStable(
+    \   filter(
+    \       map(split(a:text, '\n'), 'ingo#str#Trim(v:val)'),
+    \       '! empty(v:val)'
+    \   )
+    \)
 endfunction
 function! s:IsFirstSelectedLineSurroundedByNonKeywords()
     return search('\%' . line("'<") . 'l\%(^\|\%(\k\@!.\)\)\s*\%' . col("'<") . 'c.*\%V.\%($\|\%V\@!\%(\k\@!.\)\)', 'bcnW')
@@ -173,4 +183,16 @@ function! SearchAlternatives#RemCommand( patternCount, searchPattern )
     endif
 endfunction
 
+
+function! SearchAlternatives#Complete( ArgLead, CmdLine, CursorPos )
+    " Filter the individual alternatives according to the argument lead. Allow
+    " to omit the frequent initial \< atom in the lead.
+    return filter(
+    \	ingo#collections#UniqueStable(s:SplitIntoAlternatives(@/)),
+    \	"v:val =~ '^\\%(\\\\<\\)\\?\\V' . " . string(escape(a:ArgLead, '\'))
+    \)
+endfunction
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
