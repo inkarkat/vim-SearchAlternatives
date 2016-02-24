@@ -3,15 +3,17 @@
 " DEPENDENCIES:
 "   - Requires Vim 7.0 or higher.
 "   - ingo/avoidprompt.vim autoload script
+"   - ingo/err.vim autoload script
 "   - ingo/selection.vim autoload script
 "   - SearchAlternatives.vim autoload script
 
-" Copyright: (C) 2011-2013 Ingo Karkat
+" Copyright: (C) 2011-2014 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.11.011	05-May-2014	Abort :SearchRemove command on error.
 "   1.10.010	20-Jun-2013	ENH: Implement command completion that offers
 "				existing alternatives (to remove or
 "				clone-and-modify them).
@@ -49,7 +51,7 @@ cnoremap <SID>EchoSearchPatternForward  call ingo#avoidprompt#EchoAsSingleLine('
 "- commands --------------------------------------------------------------------
 
 command!        -nargs=1 -complete=customlist,SearchAlternatives#Complete SearchAdd      call SearchAlternatives#AddCommand(<q-args>)
-command! -count -nargs=? -complete=customlist,SearchAlternatives#Complete SearchRemove   call SearchAlternatives#RemCommand(<count>, <q-args>)
+command! -count -nargs=? -complete=customlist,SearchAlternatives#Complete SearchRemove   if ! SearchAlternatives#RemCommand(<count>, <q-args>) | echoerr ingo#err#Get() | endif
 
 
 "- mappings --------------------------------------------------------------------
