@@ -95,6 +95,9 @@ IDEAS						    *SearchAlternatives-ideas*
 ==============================================================================
 HISTORY						  *SearchAlternatives-history*
 
+1.11	RELEASEME
+- Abort :SearchRemove command on error.
+
 1.10	19-Jul-2013
 - ENH: Blockwise <Leader>+ / <Leader>- add / remove each partial selected
   trimmed line as a separate search alternative, or individual words when a
@@ -112,7 +115,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2011-2013 Ingo Karkat
+Copyright: (C) 2011-2014 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
