@@ -2,15 +2,17 @@
 "
 " DEPENDENCIES:
 "   - ingo/collections.vim autoload script
+"   - ingo/err.vim autoload script
 "   - ingo/regexp/magic.vim autoload script
 "   - ingo/str.vim autoload script
 "
-" Copyright: (C) 2011-2013 Ingo Karkat
+" Copyright: (C) 2011-2014 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.11.010	05-May-2014	Abort :SearchRemove command on error.
 "   1.10.009	20-Jun-2013	ENH: Implement command completion that offers
 "				existing alternatives (to remove or
 "				clone-and-modify them).
@@ -141,12 +143,6 @@ endfunction
 function! s:GetPattern( patternIndex )
     return get(s:SplitIntoAlternatives(@/), a:patternIndex, '')
 endfunction
-function! s:ErrorMsg( text )
-    echohl ErrorMsg
-    let v:errmsg = a:text
-    echomsg v:errmsg
-    echohl None
-endfunction
 function! s:EchoSearchPattern()
     " Note: We do not use the ingo#avoidprompt#Echo function, because for an Ex
     " command, it makes more sense to show the entire pattern, even if it causes
@@ -162,14 +158,14 @@ function! SearchAlternatives#RemCommand( patternCount, searchPattern )
     if a:patternCount > 1
 	let l:searchPattern = s:GetPattern(a:patternCount - 1)
 	if empty(l:searchPattern)
-	    call s:ErrorMsg(printf('No %d pattern found in /%s', a:patternCount, @/))
-	    return
+	    call ingo#err#Set(printf('No %d pattern found in /%s', a:patternCount, @/))
+	    return 0
 	endif
     elseif empty(a:searchPattern)
 	let l:searchPattern = s:GetPattern(-1)
 	if empty(l:searchPattern)
-	    call s:ErrorMsg('No search pattern')
-	    return
+	    call ingo#err#Set('No search pattern')
+	    return 0
 	endif
     else
 	let l:searchPattern = (ingo#regexp#magic#HasMagicAtoms(a:searchPattern) ? ingo#regexp#magic#Normalize(a:searchPattern) : a:searchPattern)
@@ -179,8 +175,11 @@ function! SearchAlternatives#RemCommand( patternCount, searchPattern )
 	call s:EchoSearchPattern()
     else
 
-	call s:ErrorMsg('Pattern not found in /' . @/)
+	call ingo#err#Set('Pattern not found in /' . @/)
+	return 0
     endif
+
+    return 1
 endfunction
 
 
