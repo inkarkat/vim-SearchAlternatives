@@ -48,13 +48,16 @@ function! SearchAlternatives#AddPattern( searchPattern )
     if empty(@/)
 	let @/ = a:searchPattern
     else
-	" Check for (no)magic atoms in the existing search pattern and
-	" neutralize it before appending the alternative.
+	let @/ = join(
+	\   add(s:SplitIntoAlternatives(@/), ingo#regexp#magic#Normalize(a:searchPattern)),
+	\   '\|'
+	\)
+	" s:SplitIntoAlternatives() already normalizes the existing search
+	" pattern; do the same for a:searchPattern here.
 	" The case-sensitivity atoms \c and \C apply to the entire pattern;
 	" they cannot be neutralized. However, this can be used to do a
 	" case-insensitive search for alternatives by initializing the search
 	" with a pattern like /\cxyz/.
-	let @/ .= ingo#regexp#magic#GetNormalizeMagicnessAtom(@/) . '\|' . a:searchPattern
     endif
 
     " The search pattern is added to the search history, as '/' or '*' would do.
