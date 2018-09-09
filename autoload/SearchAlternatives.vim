@@ -49,8 +49,10 @@ function! SearchAlternatives#AddPattern( searchPattern )
 	let @/ = a:searchPattern
     else
 	let @/ = join(
-	\   add(s:SplitIntoAlternatives(@/), ingo#regexp#magic#Normalize(a:searchPattern)),
-	\   '\|'
+	\   ingo#regexp#split#AddPatternByProjectedMatchLength(
+	\       s:SplitIntoAlternatives(@/),
+	\       ingo#regexp#magic#Normalize(a:searchPattern)
+	\   ), '\|'
 	\)
 	" s:SplitIntoAlternatives() already normalizes the existing search
 	" pattern; do the same for a:searchPattern here.
