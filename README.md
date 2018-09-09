@@ -78,7 +78,7 @@ To uninstall, use the :RmVimball command.
 ### DEPENDENCIES
 
 - Requires Vim 7.0 or higher.
-- Requires the ingo-library.vim plugin ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)), version 1.034 or
+- Requires the ingo-library.vim plugin ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)), version 1.035 or
   higher.
 
 CONTRIBUTING
@@ -93,7 +93,14 @@ HISTORY
 
 ##### 1.11    RELEASEME
 - Abort :SearchRemove command on error.
-  __You need to update to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version 1.034!__
+- ENH: When adding a pattern (e.g. /foo/) when a shorter prefix (/fo/) already
+  exists, the shorter one will eclipse the longer one (only "fo" will be
+  matched in "foobar"). A new algorithm determines / estimates (in case of
+  multis) the match length, and adds shorter ones after longer ones, to avoid
+  the problem. In case of varying match lengths (e.g. with \* and \+ multis),
+  it cannot completely fix it, but it's always equal or better than the
+  original simple addition at the end.
+  __You need to update to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version 1.035!__
 
 ##### 1.10    19-Jul-2013
 - ENH: Blockwise <Leader>+ / <Leader>- add / remove each partial selected
