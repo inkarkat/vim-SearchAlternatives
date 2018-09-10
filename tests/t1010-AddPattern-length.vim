@@ -1,4 +1,4 @@
-" Test AddPattern
+" Test AddPattern according to projected length.
 
 call vimtest#StartTap()
 call vimtap#Plan(7)

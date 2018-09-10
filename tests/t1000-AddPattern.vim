@@ -1,4 +1,4 @@
-" Test AddPattern
+" Test AddPattern.
 
 call vimtest#StartTap()
 call vimtap#Plan(3)
