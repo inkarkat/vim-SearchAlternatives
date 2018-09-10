@@ -76,7 +76,8 @@ function! s:SplitIntoAlternatives( pattern )
     return ingo#regexp#split#TopLevelBranches(l:pattern)
 endfunction
 function! SearchAlternatives#RemPattern( searchPattern )
-    let l:alternatives = s:SplitIntoAlternatives(@/)
+    let [l:engineTypeFlag, l:caseSensitivityFlag, l:purePattern] = ingo#regexp#split#GlobalFlags(@/)
+    let l:alternatives = s:SplitIntoAlternatives(l:purePattern)
     let l:alternativesNum = len(l:alternatives)
 
     call filter(l:alternatives, 'v:val !=# ' . string(ingo#regexp#magic#Normalize(a:searchPattern)))
@@ -85,7 +86,7 @@ function! SearchAlternatives#RemPattern( searchPattern )
 	return 0
     endif
 
-    let @/ = join(l:alternatives, '\|')
+    let @/ = l:engineTypeFlag . l:caseSensitivityFlag . join(l:alternatives, '\|')
 
     " The search pattern is added to the search history, as '/' or '*' would do.
     call histadd('/', @/)
