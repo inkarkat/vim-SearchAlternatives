@@ -46,9 +46,9 @@ set cpo&vim
 
 function! SearchAlternatives#AddPattern( searchPattern )
     if empty(@/)
-	let @/ = a:searchPattern
+	let l:newSearchPattern = a:searchPattern
     else
-	let @/ = join(
+	let l:newSearchPattern = join(
 	\   ingo#regexp#split#AddPatternByProjectedMatchLength(
 	\       s:SplitIntoAlternatives(@/),
 	\       ingo#regexp#magic#Normalize(a:searchPattern)
@@ -61,6 +61,10 @@ function! SearchAlternatives#AddPattern( searchPattern )
 	" case-insensitive search for alternatives by initializing the search
 	" with a pattern like /\cxyz/.
     endif
+
+    " Make global flags unique and put them to the front of the search pattern
+    " by splitting and re-joining.
+    let @/ = join(ingo#regexp#split#GlobalFlags(l:newSearchPattern), '')
 
     " The search pattern is added to the search history, as '/' or '*' would do.
     call histadd('/', @/)
