@@ -100,6 +100,12 @@ HISTORY
   the problem. In case of varying match lengths (e.g. with \* and \+ multis),
   it cannot completely fix it, but it's always equal or better than the
   original simple addition at the end.
+- ENH: When removing a branch, existing global regexp flags like for case
+  sensitivity (/\c, /\C) and regexp engine type (/\%#=0) caused a mismatch,
+  and the corresponding branch could not be found. Now, we extract those flags
+  and segregate them from the comparisons.
+  On addition via SearchAlternatives#AddPattern(), make global flags unique
+  and put them to the front of the search pattern.
   __You need to update to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version 1.035!__
 
 ##### 1.10    19-Jul-2013
