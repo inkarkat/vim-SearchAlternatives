@@ -79,9 +79,7 @@ function! SearchAlternatives#RemPattern( searchPattern )
     let l:alternatives = s:SplitIntoAlternatives(@/)
     let l:alternativesNum = len(l:alternatives)
 
-    " We know that a:searchPattern doesn't use any atoms that change the
-    " magicness, so we must only normalize the original search pattern.
-    call filter(l:alternatives, 'v:val !=# a:searchPattern')
+    call filter(l:alternatives, 'v:val !=# ' . string(ingo#regexp#magic#Normalize(a:searchPattern)))
     if len(l:alternatives) == l:alternativesNum
 	" The text wasn't found in the search pattern.
 	return 0
