@@ -80,7 +80,7 @@ function! SearchAlternatives#RemPattern( searchPattern )
     let l:alternatives = s:SplitIntoAlternatives(l:purePattern)
     let l:alternativesNum = len(l:alternatives)
 
-    call filter(l:alternatives, 'v:val !=# ' . string(ingo#regexp#magic#Normalize(a:searchPattern)))
+    call filter(l:alternatives, 'v:val !=# ' . string(ingo#regexp#split#GlobalFlags(ingo#regexp#magic#Normalize(a:searchPattern))[-1]))
     if len(l:alternatives) == l:alternativesNum
 	" The text wasn't found in the search pattern.
 	return 0
