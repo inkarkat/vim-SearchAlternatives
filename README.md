@@ -1,4 +1,4 @@
-SEARCH ALTERNATIVES   
+SEARCH ALTERNATIVES
 ===============================================================================
 _by Ingo Karkat_
 
@@ -12,6 +12,8 @@ also want to find matches for "bar"? You could type /foo\|bar<CR> or
 (like the star command), and juggle several alternatives, adding and
 dropping them as you search, this plugin is quicker than manually editing the
 search command-line (which you can still do).
+
+### SEE ALSO
 
 ### RELATED WORKS
 
@@ -106,7 +108,8 @@ HISTORY
   and segregate them from the comparisons.
   On addition via SearchAlternatives#AddPattern(), make global flags unique
   and put them to the front of the search pattern.
-  __You need to update to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version 1.035!__
+
+__You need to update to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version 1.035!__
 
 ##### 1.10    19-Jul-2013
 - ENH: Blockwise <Leader>+ / <Leader>- add / remove each partial selected
@@ -115,7 +118,9 @@ HISTORY
 - ENH: Implement command completion that offers existing alternatives (to
   remove or clone-and-modify them).
 - Remove -complete=expression; it's not useful for completing regexp patterns.
-- Add dependency to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)). __You need to separately
+- Add dependency to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)).
+
+__You need to separately
   install ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version 1.009 (or higher)!__
 
 ##### 1.00    26-Jul-2012
@@ -125,7 +130,7 @@ HISTORY
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2011-2018 Ingo Karkat -
+Copyright: (C) 2011-2019 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
 Maintainer:     Ingo Karkat <ingo@karkat.de>

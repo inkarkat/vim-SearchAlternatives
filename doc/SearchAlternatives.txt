@@ -21,6 +21,12 @@ also want to find matches for "bar"? You could type /foo\|bar<CR> or
 dropping them as you search, this plugin is quicker than manually editing the
 search command-line (which you can still do).
 
+SEE ALSO								     *
+
+- The |PatternBranchComplete.vim| plugin (vimscript #0000) offers quick access
+  to literal strings from current search pattern branches (whose creation and
+  manipulation is eased by this plugin), via a custom insert mode completion.
+
 RELATED WORKS								     *
 
 - Add to Word Search (vimscript #3955) can add the keyword under the cursor to
@@ -141,7 +147,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2011-2018 Ingo Karkat
+Copyright: (C) 2011-2019 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
