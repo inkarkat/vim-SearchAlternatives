@@ -21,6 +21,12 @@ also want to find matches for "bar"? You could type /foo\|bar<CR> or
 dropping them as you search, this plugin is quicker than manually editing the
 search command-line (which you can still do).
 
+SEE ALSO								     *
+
+- The |PatternBranchComplete.vim| plugin (vimscript #0000) offers quick access
+  to literal strings from current search pattern branches (whose creation and
+  manipulation is eased by this plugin), via a custom insert mode completion.
+
 RELATED WORKS								     *
 
 - Add to Word Search (vimscript #3955) can add the keyword under the cursor to
@@ -69,10 +75,16 @@ USAGE						    *SearchAlternatives-usage*
 ==============================================================================
 INSTALLATION				     *SearchAlternatives-installation*
 
-This script is packaged as a |vimball|. If you have the "gunzip" decompressor
-in your PATH, simply edit the *.vmb.gz package in Vim; otherwise, decompress
-the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
-vimball or via the |:UseVimball| command. >
+The code is hosted in a Git repo at
+    https://github.com/inkarkat/vim-SearchAlternatives
+You can use your favorite plugin manager, or "git clone" into a directory used
+for Vim |packages|. Releases are on the "stable" branch, the latest unstable
+development snapshot on "master".
+
+This script is also packaged as a |vimball|. If you have the "gunzip"
+decompressor in your PATH, simply edit the *.vmb.gz package in Vim; otherwise,
+decompress the archive first, e.g. using WinZip. Inside Vim, install by
+sourcing the vimball or via the |:UseVimball| command. >
     vim SearchAlternatives*.vmb.gz
     :so %
 To uninstall, use the |:RmVimball| command.
@@ -80,7 +92,7 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES				     *SearchAlternatives-dependencies*
 
 - Requires Vim 7.0 or higher.
-- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.034 or
+- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.035 or
   higher.
 
 ==============================================================================
@@ -92,12 +104,31 @@ TODO						     *SearchAlternatives-todo*
 
 IDEAS						    *SearchAlternatives-ideas*
 
+CONTRIBUTING				       *SearchAlternatives-contribute*
+
+Report any bugs, send patches, or suggest features via the issue tracker at
+https://github.com/inkarkat/vim-SearchAlternatives/issues or email (address
+below).
+
 ==============================================================================
 HISTORY						  *SearchAlternatives-history*
 
-1.11	RELEASEME
+1.11	31-Jan-2020
 - Abort :SearchRemove command on error.
-  *** You need to update to ingo-library (vimscript #4433) version 1.034! ***
+- ENH: When adding a pattern (e.g. /foo/) when a shorter prefix (/fo/) already
+  exists, the shorter one will eclipse the longer one (only "fo" will be
+  matched in "foobar"). A new algorithm determines / estimates (in case of
+  multis) the match length, and adds shorter ones after longer ones, to avoid
+  the problem. In case of varying match lengths (e.g. with * and \+ multis),
+  it cannot completely fix it, but it's always equal or better than the
+  original simple addition at the end.
+- ENH: When removing a branch, existing global regexp flags like for case
+  sensitivity (/\c, /\C) and regexp engine type (/\%#=0) caused a mismatch,
+  and the corresponding branch could not be found. Now, we extract those flags
+  and segregate them from the comparisons.
+  On addition via SearchAlternatives#AddPattern(), make global flags unique
+  and put them to the front of the search pattern.
+  *** You need to update to ingo-library (vimscript #4433) version 1.035! ***
 
 1.10	19-Jul-2013
 - ENH: Blockwise <Leader>+ / <Leader>- add / remove each partial selected
@@ -116,7 +147,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2011-2018 Ingo Karkat
+Copyright: (C) 2011-2020 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
