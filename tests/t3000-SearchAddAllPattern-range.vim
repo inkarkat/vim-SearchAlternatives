@@ -13,6 +13,6 @@ let @/ = ''
 8,11SearchAddAllPattern
 call IsPattern('special^$and.*or[~]this#%&*\|foo/bar\too\|^anchored$\|\<fo\+\|\(g[aeiou]\)\1\>', 'add four regexps')
 
-call vimtap#err#Errors('Nothing added', '6,7SearchAddAllPattern', 'Error with range that is just empty lines')
+call vimtap#err#Errors('Nothing added', '6,7SearchAddAllPattern', 'error with range that is just empty lines')
 
 call vimtest#Quit()

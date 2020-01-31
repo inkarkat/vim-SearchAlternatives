@@ -14,9 +14,9 @@ SearchAddAllPattern b
 call IsPattern('special^$and.*or[~]this#%&*\|foo/bar\too\|^anchored$\|\<fo\+\|\(g[aeiou]\)\1\>', 'add four regexps')
 
 let @e = ''
-call vimtap#err#Errors('Nothing added', 'SearchAddAllPattern e', 'Error with register that is empty')
+call vimtap#err#Errors('Nothing added', 'SearchAddAllPattern e', 'error with register that is empty')
 
 let @e = "\n\n"
-call vimtap#err#Errors('Nothing added', 'SearchAddAllPattern e', 'Error with register that is just empty lines')
+call vimtap#err#Errors('Nothing added', 'SearchAddAllPattern e', 'error with register that is just empty lines')
 
 call vimtest#Quit()
