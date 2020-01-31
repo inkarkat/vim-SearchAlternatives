@@ -1,6 +1,7 @@
 " SearchAlternatives/All.vim: Add all lines from a range or register.
 "
 " DEPENDENCIES:
+"   - ingo-library.vim plugin
 "
 " Copyright: (C) 2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -13,6 +14,12 @@ function! SearchAlternatives#All#Add( Escaper, hasRange, startLnum, endLnum, arg
 	let l:patterns = getline(l:startLnum, l:endLnum)
     else
 	" TODO
+    endif
+
+    let l:patterns = ingo#list#NonEmpty(l:patterns)
+    if empty(l:patterns)
+	call ingo#err#Set('Nothing added')
+	return 0
     endif
 
     for l:pattern in l:patterns
