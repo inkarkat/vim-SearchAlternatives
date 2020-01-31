@@ -7,34 +7,6 @@
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.11.011	24-Jun-2018	Use ingo#regexp#split#TopLevelBranches().
-"   1.11.010	05-May-2014	Abort :SearchRemove command on error.
-"   1.10.009	20-Jun-2013	ENH: Implement command completion that offers
-"				existing alternatives (to remove or
-"				clone-and-modify them).
-"   1.10.008	19-Jun-2013	ENH: Blockwise <Leader>+ / <Leader>- add /
-"				remove each partial selected trimmed line as a
-"				separate search alternative, or individual words
-"				when a single line is blockwise-selected.
-"   1.01.007	24-May-2013	Move ingosearch.vim to ingo-library.
-"   1.00.006	22-Mar-2012	BUG: Missing closing parenthesis caused E116.
-"				FIX: Must split only on \|, but not on \\|.
-"	005	08-Mar-2012	ENH: Add :SearchAdd and :SearchRemove commands.
-"	004	08-Mar-2012	Rename #Add() to #AddLiteralText() and factor
-"				out #AddPattern(); same for #Rem().
-"				Remove unused starCommand argument.
-"	003	13-Jun-2011	FIX: Directly ring the bell to avoid problems
-"				when running under :silent!.
-"	002	11-Jun-2011	Also account for different representations of
-"				the same pattern, e.g. \V vs. individual
-"				escaping, when removing an alternative. This
-"				way, it is ensured that the alternative really
-"				doesn't match any more. For additions, we don't
-"				care, since there is no penalty when multiple
-"				branches match.
-"	001	10-Jun-2011	file creation
 let s:save_cpo = &cpo
 set cpo&vim
 

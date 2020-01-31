@@ -8,29 +8,6 @@
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.11.011	05-May-2014	Abort :SearchRemove command on error.
-"   1.10.010	20-Jun-2013	ENH: Implement command completion that offers
-"				existing alternatives (to remove or
-"				clone-and-modify them).
-"   1.10.009	19-Jun-2013	ENH: Blockwise <Leader>+ / <Leader>- add /
-"				remove each partial selected trimmed line as a
-"				separate search alternative.
-"   1.01.008	07-Jun-2013	Move EchoWithoutScrolling.vim into ingo-library.
-"   1.01.007	24-May-2013	Move ingointegration#GetVisualSelection() into
-"				ingo-library.
-"   1.01.006	05-Nov-2012	Remove -complete=expression; it's not useful for
-"				completing regexp patterns.
-"   1.00.005	08-Mar-2012	ENH: Add :SearchAdd and :SearchRemove commands.
-"	004	08-Mar-2012	Rename #Add() to #AddLiteralText() and factor
-"				out #AddPattern(); same for #Rem().
-"				Remove unused starCommand argument.
-"	003	30-Sep-2011	Use <silent> for <Plug> mapping instead of
-"				default mapping.
-"	002	12-Sep-2011	Use ingointegration#GetVisualSelection() instead
-"				of inline capture.
-"	001	10-Jun-2011	file creation
 
 " Avoid installing twice or when in unsupported Vim version.
 if exists('g:loaded_SearchAlternatives') || (v:version < 700)
