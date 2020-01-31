@@ -9,11 +9,17 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 
 function! SearchAlternatives#All#Add( Escaper, hasRange, startLnum, endLnum, arguments ) abort
+    let l:register = a:arguments
     if a:hasRange
+	if ! empty(l:register)
+	    call ingo#err#Set('Cannot pass both range and register')
+	    return 0
+	endif
+
 	let [l:startLnum, l:endLnum] = [ingo#range#NetStart(a:startLnum), ingo#range#NetEnd(a:endLnum)]
 	let l:patterns = getline(l:startLnum, l:endLnum)
     else
-	let l:patterns = split(getreg(a:arguments), '\n')
+	let l:patterns = split(getreg(l:register), '\n')
     endif
 
     let l:patterns = ingo#list#NonEmpty(l:patterns)
