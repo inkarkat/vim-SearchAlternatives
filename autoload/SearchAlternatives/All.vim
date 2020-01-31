@@ -13,7 +13,7 @@ function! SearchAlternatives#All#Add( Escaper, hasRange, startLnum, endLnum, arg
 	let [l:startLnum, l:endLnum] = [ingo#range#NetStart(a:startLnum), ingo#range#NetEnd(a:endLnum)]
 	let l:patterns = getline(l:startLnum, l:endLnum)
     else
-	" TODO
+	let l:patterns = split(getreg(a:arguments), '\n')
     endif
 
     let l:patterns = ingo#list#NonEmpty(l:patterns)
