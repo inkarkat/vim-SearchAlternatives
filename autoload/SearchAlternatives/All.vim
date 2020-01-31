@@ -29,10 +29,13 @@ function! SearchAlternatives#All#Add( Escaper, hasRange, startLnum, endLnum, arg
 	\   'flagsExpr': '\(g\)\?', 'emptyReplacement': '', 'emptyFlags': '', 'isAllowLoneFlags': 0
 	\})
 	let l:pattern = ingo#escape#Unescape(l:pattern, l:separator)
-	let l:hasReplacement = (! empty(l:replacement) || l:rest =~# '\V' . escape(l:separator . l:separator . l:flags, '\') . '\$')
+	let l:isGlobalMatch = (l:replacement =~# 'g$' && empty(l:flags) && l:rest =~# 'g$')
+	let l:hasReplacement = (! empty(l:replacement) && ! l:isGlobalMatch || l:rest =~# '\V' . escape(l:separator . l:separator . l:flags, '\') . '\$')
 	if l:hasReplacement
 	    let l:replacement = ingo#escape#Unescape(l:replacement, l:separator)
 	    call map(l:patterns, 'substitute(v:val, l:pattern, l:replacement, l:flags)')
+	elseif l:isGlobalMatch
+	    call map(l:patterns, 'join(ingo#collections#SplitIntoMatches(v:val, l:pattern), "")')
 	else
 	    call map(l:patterns, 'matchstr(v:val, l:pattern)')
 	endif

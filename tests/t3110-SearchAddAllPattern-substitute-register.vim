@@ -1,44 +1,45 @@
-" Test :SearchAddAllPattern substitution of patterns from range.
+" Test :SearchAddAllPattern substitution of patterns from register.
 
-view list.txt
+let @a = "three \"words\" here\nleading ws\ntrailing ws"
+let @b = "expr(1).\nmore(2)?\npattern(3)!"
 
 call vimtest#StartTap()
 call vimtap#Plan(9)
 
 let @/ = ''
-3,5SearchAddAllPattern /\S.*\S/
+SearchAddAllPattern a /\S.*\S/
 call IsPattern('three "words" here\|trailing ws\|leading ws', 'add range without leading and trailing whitespace')
 
 let @/ = ''
-13,15SearchAddAllPattern /^\w\+/
+SearchAddAllPattern b /^\w\+/
 call IsPattern('pattern\|expr\|more', 'add range with match')
 
 let @/ = ''
-13,15SearchAddAllPattern /\d/&&/
+SearchAddAllPattern b /\d/&&/
 call IsPattern('pattern(33)!\|expr(11).\|more(22)?', 'add range with replacement doubling the match')
 
 let @/ = ''
-13,15SearchAddAllPattern /[()]/#/
+SearchAddAllPattern b /[()]/#/
 call IsPattern('pattern#3)!\|expr#1).\|more#2)?', 'add range with replacement once')
 
 let @/ = ''
-13,15SearchAddAllPattern /[().?!]/#/g
+SearchAddAllPattern b /[().?!]/#/g
 call IsPattern('pattern#3##\|expr#1##\|more#2##', 'add range with global replacement')
 
 let @/ = ''
-13,15SearchAddAllPattern /^\(\w\+\)(\(\d\))\(.\)$/\2\3\1\3/
+SearchAddAllPattern b /^\(\w\+\)(\(\d\))\(.\)$/\2\3\1\3/
 call IsPattern('3!pattern!\|1.expr.\|2?more?', 'add range with capture group replacement')
 
 let @/ = ''
-3,5SearchAddAllPattern /^\s\+\|\s\+$//g
+SearchAddAllPattern a /^\s\+\|\s\+$//g
 call IsPattern('three "words" here\|trailing ws\|leading ws', 'add range without leading and trailing whitespace negative with empty replacement')
 
 let @/ = ''
-13,15SearchAddAllPattern /\w\+/g
+SearchAddAllPattern b /\w\+/g
 call IsPattern('pattern3\|expr1\|more2', 'add range with global match')
 
 let @/ = ''
-13,15SearchAddAllPattern /\w\+/g/
+SearchAddAllPattern b /\w\+/g/
 call IsPattern('g(1).\|g(2)?\|g(3)!', 'global match is not confused with g replacement')
 
 call vimtest#Quit()
