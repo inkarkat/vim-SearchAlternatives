@@ -113,7 +113,7 @@ below).
 ==============================================================================
 HISTORY						  *SearchAlternatives-history*
 
-1.11	RELEASEME
+1.11	31-Jan-2020
 - Abort :SearchRemove command on error.
 - ENH: When adding a pattern (e.g. /foo/) when a shorter prefix (/fo/) already
   exists, the shorter one will eclipse the longer one (only "fo" will be
@@ -147,7 +147,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2011-2019 Ingo Karkat
+Copyright: (C) 2011-2020 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
