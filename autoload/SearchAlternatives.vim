@@ -1,15 +1,9 @@
 " SearchAlternatives.vim: Add / subtract alternatives from the search pattern.
 "
 " DEPENDENCIES:
-"   - ingo/avoidprompt.vim autoload script
-"   - ingo/collections.vim autoload script
-"   - ingo/err.vim autoload script
-"   - ingo/regexp.vim autoload script
-"   - ingo/regexp/magic.vim autoload script
-"   - ingo/regexp/split.vim autoload script
-"   - ingo/str.vim autoload script
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2011-2018 Ingo Karkat
+" Copyright: (C) 2011-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
