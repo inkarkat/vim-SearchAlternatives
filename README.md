@@ -7,8 +7,8 @@ DESCRIPTION
 
 This plugin provides mappings and commands to add and subtract alternative
 branches to the current search pattern. Currently searching for "foo," but
-also want to find matches for "bar"? You could type /foo\|bar<CR> or
-/<C-R>/\|bar<CR>, but once you want to limit the search to whole \<words\>
+also want to find matches for "bar"? You could type /foo\\|bar&lt;CR&gt; or
+/&lt;C-R&gt;/\\|bar&lt;CR&gt;, but once you want to limit the search to whole \\&lt;words\\&gt;
 (like the star command), and juggle several alternatives, adding and
 dropping them as you search, this plugin is quicker than manually editing the
 search command-line (which you can still do).
@@ -93,17 +93,17 @@ below).
 HISTORY
 ------------------------------------------------------------------------------
 
-##### 1.11    RELEASEME
+##### 1.11    31-Jan-2020
 - Abort :SearchRemove command on error.
 - ENH: When adding a pattern (e.g. /foo/) when a shorter prefix (/fo/) already
   exists, the shorter one will eclipse the longer one (only "fo" will be
   matched in "foobar"). A new algorithm determines / estimates (in case of
   multis) the match length, and adds shorter ones after longer ones, to avoid
-  the problem. In case of varying match lengths (e.g. with \* and \+ multis),
+  the problem. In case of varying match lengths (e.g. with \* and \\+ multis),
   it cannot completely fix it, but it's always equal or better than the
   original simple addition at the end.
 - ENH: When removing a branch, existing global regexp flags like for case
-  sensitivity (/\c, /\C) and regexp engine type (/\%#=0) caused a mismatch,
+  sensitivity (/\\c, /\\C) and regexp engine type (/\\%#=0) caused a mismatch,
   and the corresponding branch could not be found. Now, we extract those flags
   and segregate them from the comparisons.
   On addition via SearchAlternatives#AddPattern(), make global flags unique
@@ -112,7 +112,7 @@ HISTORY
 __You need to update to ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version 1.035!__
 
 ##### 1.10    19-Jul-2013
-- ENH: Blockwise <Leader>+ / <Leader>- add / remove each partial selected
+- ENH: Blockwise &lt;Leader&gt;+ / &lt;Leader&gt;- add / remove each partial selected
   trimmed line as a separate search alternative, or individual words when a
   single line is blockwise-selected.
 - ENH: Implement command completion that offers existing alternatives (to
@@ -130,7 +130,7 @@ __You need to separately
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2011-2019 Ingo Karkat -
+Copyright: (C) 2011-2020 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
-Maintainer:     Ingo Karkat <ingo@karkat.de>
+Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;
