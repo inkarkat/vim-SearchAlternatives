@@ -73,24 +73,24 @@ USAGE						    *SearchAlternatives-usage*
 			alternatives in the search pattern.
 
 							*:SearchAddAllLiteral*
-:SearchAddAllLiteral {register} [/{pattern}/[{replacement}/]]
-:{range}SearchAddAllLiteral [/{pattern}/[{replacement}/]]
+:SearchAddAllLiteral {register} [/{pattern}/[{replacement}/[g]]]
+:{range}SearchAddAllLiteral [/{pattern}/[{replacement}/[g]]]
 			Convert all lines in {range} / [{register}]
-			(optionally extracted via /{pattern}/ and modified via
+			(optionally extracted via /{pattern}/ or modified via
 			{replacement}) to search for any line taken as literal
 			text individually.		  *:SearchAddAllWhole*
-:SearchAddAllWhole {register} [/{pattern}/[{replacement}/]]
-:{range}SearchAddAllWhole [/{pattern}/[{replacement}/]]
+:SearchAddAllWhole {register} [/{pattern}/[{replacement}/[g]]]
+:{range}SearchAddAllWhole [/{pattern}/[{replacement}/[g]]]
 			Convert all lines in {range} / [{register}]
-			(optionally extracted via /{pattern}/ and modified via
+			(optionally extracted via /{pattern}/ or modified via
 			{replacement}) to search for any line taken as whole
 			words or whole WORDs (depending on whether the line
 			starts and ends with keyword or non-whitespace
 			characters) individually.	*:SearchAddAllPattern*
-:SearchAddAllPattern {register} [/{pattern}/[{replacement}/]]
-:{range}SearchAddAllPattern [/{pattern}/[{replacement}/]]
+:SearchAddAllPattern {register} [/{pattern}/[{replacement}/[g]]]
+:{range}SearchAddAllPattern [/{pattern}/[{replacement}/[g]]]
 			Convert all lines in {range} / [{register}]
-			(optionally extracted via /{pattern}/ and modified via
+			(optionally extracted via /{pattern}/ or modified via
 			{replacement}) to search for any line taken as regular
 			expressions individually.
 
