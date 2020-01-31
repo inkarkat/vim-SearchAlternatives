@@ -3,11 +3,15 @@
 view list.txt
 
 call vimtest#StartTap()
-call vimtap#Plan(3)
+call vimtap#Plan(4)
 
 let @/ = 'nil'
 1,2SearchAddAllPattern
 call IsPattern('nil\|one\|two', 'add simple two-line range')
+
+let @/ = ''
+4,5SearchAddAllPattern
+call IsPattern('trailing ws	    \|	    leading ws', 'keeps leading and trailing whitespace')
 
 let @/ = ''
 8,11SearchAddAllPattern
