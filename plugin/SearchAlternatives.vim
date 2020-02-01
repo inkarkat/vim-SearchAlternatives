@@ -29,7 +29,7 @@ command! -count -nargs=? -complete=customlist,SearchAlternatives#Complete Search
 
 command! -range=-1 -nargs=? SearchAddAllLiteral if ! SearchAlternatives#All#Add('ingo#regexp#EscapeLiteralText',         <count> != -1, <line1>, <line2>, <q-args>) | echoerr ingo#err#Get() | endif
 command! -range=-1 -nargs=? SearchAddAllWhole   if ! SearchAlternatives#All#Add('ingo#regexp#MakeWholeWordOrWORDSearch', <count> != -1, <line1>, <line2>, <q-args>) | echoerr ingo#err#Get() | endif
-command! -range=-1 -nargs=? SearchAddAllPattern if ! SearchAlternatives#All#Add('',                                      <count> != -1, <line1>, <line2>, <q-args>) | echoerr ingo#err#Get() | endif
+command! -range=-1 -nargs=? SearchAddAllPattern if ! SearchAlternatives#All#Add('ingo#funcref#UnaryIdentity',            <count> != -1, <line1>, <line2>, <q-args>) | echoerr ingo#err#Get() | endif
 
 
 "- mappings --------------------------------------------------------------------

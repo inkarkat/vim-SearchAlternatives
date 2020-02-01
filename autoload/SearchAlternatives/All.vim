@@ -48,7 +48,7 @@ function! SearchAlternatives#All#Add( Escaper, hasRange, startLnum, endLnum, arg
     endif
 
     for l:pattern in l:patterns
-	call SearchAlternatives#AddPattern(l:pattern)
+	call SearchAlternatives#AddPattern(call(a:Escaper, [l:pattern]))
     endfor
     return 1
 endfunction
