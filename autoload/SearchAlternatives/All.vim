@@ -53,6 +53,10 @@ function! SearchAlternatives#All#Add( Escaper, hasRange, startLnum, endLnum, arg
     return 1
 endfunction
 
+function! SearchAlternatives#All#Whole( text ) abort
+    return ingo#regexp#MakeWholeWordOrWORDSearch(a:text, ingo#regexp#EscapeLiteralText(a:text))
+endfunction
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
