@@ -27,6 +27,21 @@ cnoremap <SID>EchoSearchPatternForward  call ingo#avoidprompt#EchoAsSingleLine('
 command!        -nargs=1 -complete=customlist,SearchAlternatives#Complete SearchAdd      call SearchAlternatives#AddCommand(<q-args>)
 command! -count -nargs=? -complete=customlist,SearchAlternatives#Complete SearchRemove   if ! SearchAlternatives#RemCommand(<count>, <q-args>) | echoerr ingo#err#Get() | endif
 
+if v:version < 702 | runtime autoload/SearchAlternatives/All.vim | runtime autoload/ingo/funcref.vim | endif  " The Funcref doesn't trigger the autoload in older Vim versions.
+command! -range=-1 -nargs=? SearchAddAllLiteral if ! SearchAlternatives#All#Add('ingo#regexp#EscapeLiteralText', <count> != -1, <line1>, <line2>, <q-args>) | echoerr ingo#err#Get() | endif
+command! -range=-1 -nargs=? SearchAddAllWhole   if ! SearchAlternatives#All#Add('SearchAlternatives#All#Whole',  <count> != -1, <line1>, <line2>, <q-args>) | echoerr ingo#err#Get() | endif
+command! -range=-1 -nargs=? SearchAddAllPattern if ! SearchAlternatives#All#Add('ingo#funcref#UnaryIdentity',    <count> != -1, <line1>, <line2>, <q-args>) | echoerr ingo#err#Get() | endif
+
+" Integration with AdvancedSearches.vim
+if ! exists('g:loaded_AdvancedSearches')
+    runtime plugin/AdvancedSearches.vim
+endif
+if exists('g:loaded_AdvancedSearches') && g:loaded_AdvancedSearches
+    command! -range=-1 -nargs=? SearchAddAllAny1Whitespace if ! SearchAlternatives#All#Add('AdvancedSearches#Literal#Any1WhitespaceConverter', <count> != -1, <line1>, <line2>, <q-args>) | echoerr ingo#err#Get() | endif
+    command! -range=-1 -nargs=? SearchAddAllAny0Whitespace if ! SearchAlternatives#All#Add('AdvancedSearches#Literal#Any0WhitespaceConverter', <count> != -1, <line1>, <line2>, <q-args>) | echoerr ingo#err#Get() | endif
+endif
+
+
 
 "- mappings --------------------------------------------------------------------
 

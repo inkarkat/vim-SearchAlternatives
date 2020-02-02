@@ -5,6 +5,7 @@
 description			|SearchAlternatives-description|
 usage				|SearchAlternatives-usage|
 installation			|SearchAlternatives-installation|
+integration			|SearchAlternatives-integration|
 limitations			|SearchAlternatives-limitations|
 known problems			|SearchAlternatives-known-problems|
 todo				|SearchAlternatives-todo|
@@ -72,6 +73,31 @@ USAGE						    *SearchAlternatives-usage*
 :[N]SearchRemove	Remove the [N]'th / last alternative from the
 			alternatives in the search pattern.
 
+							*:SearchAddAllLiteral*
+:SearchAddAllLiteral {register} [/{pattern}/[{replacement}/][g]]
+:{range}SearchAddAllLiteral [/{pattern}/[{replacement}/][g]]
+			Convert all lines in {range} / [{register}]
+			(optionally extracted via /{pattern}/ (first match or
+			all matches with [g]) or modified via {replacement})
+			to search for any line taken as literal text
+			individually.			  *:SearchAddAllWhole*
+:SearchAddAllWhole {register} [/{pattern}/[{replacement}/][g]]
+:{range}SearchAddAllWhole [/{pattern}/[{replacement}/][g]]
+			Convert all lines in {range} / [{register}]
+			(optionally extracted via /{pattern}/ (first match or
+			all matches with [g]) or modified via {replacement})
+			to search for any line taken as whole
+			words or whole WORDs (depending on whether the line
+			starts and ends with keyword or non-whitespace
+			characters) individually.	*:SearchAddAllPattern*
+:SearchAddAllPattern {register} [/{pattern}/[{replacement}/][g]]
+:{range}SearchAddAllPattern [/{pattern}/[{replacement}/][g]]
+			Convert all lines in {range} / [{register}]
+			(optionally extracted via /{pattern}/ (first match or
+			all matches with [g]) or modified via {replacement})
+			to search for any line taken as regular
+			expressions individually.
+
 ==============================================================================
 INSTALLATION				     *SearchAlternatives-installation*
 
@@ -94,6 +120,24 @@ DEPENDENCIES				     *SearchAlternatives-dependencies*
 - Requires Vim 7.0 or higher.
 - Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.035 or
   higher.
+- |AdvancedSearches.vim| plugin (vimscript #0000), version 1.00 or
+  higher (optional integration).
+
+==============================================================================
+INTEGRATION				      *SearchAlternatives-integration*
+
+If AdvancedSearches.vim (vimscript #0000) has been installed, two additional
+commands are available:
+:SearchAddAllAny1Whitespace {register} [/{pattern}/[{replacement}/][g]]
+:{range}SearchAddAllAny1Whitespace [/{pattern}/[{replacement}/][g]]
+			Like |:SearchAddAllLiteral|, but ignore whitespace
+			differences and comment prefixes, like |<Leader>/_|.
+:SearchAddAllAny0Whitespace {register} [/{pattern}/[{replacement}/][g]]
+:{range}SearchAddAllAny0Whitespace [/{pattern}/[{replacement}/][g]]
+			Like |:SearchAddAllLiteral|, but ignore whitespace
+			differences and comment prefixes, and also allow
+			direct concatenation of lines (i.e. without
+			any whitespace in between), like |<Leader>/star|.
 
 ==============================================================================
 LIMITATIONS				      *SearchAlternatives-limitations*
@@ -112,6 +156,11 @@ below).
 
 ==============================================================================
 HISTORY						  *SearchAlternatives-history*
+
+1.20	02-Feb-2020
+- ENH: Add :SearchAddAll{Literal,Whole,Pattern} commands (and
+  :SearchAddAllAny[10]Whitespace variants if AdvancedSearches.vim is
+  installed) to enable bulk addition from a range or register contents.
 
 1.11	31-Jan-2020
 - Abort :SearchRemove command on error.

@@ -1,0 +1,21 @@
+one
+two
+three "words" here
+	    leading ws
+trailing ws	    
+
+
+foo/bar\too
+^anchored$
+\<fo\+\|\(g[aeiou]\)\1\>
+special^$and.*or[~]this#%&*
+
+expr(1).
+more(2)?
+pattern(3)!
+
+_keyword_
+_***_
+&WORD%
+&&	%%
+_mixed%
