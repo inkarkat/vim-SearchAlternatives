@@ -118,7 +118,7 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES				     *SearchAlternatives-dependencies*
 
 - Requires Vim 7.0 or higher.
-- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.035 or
+- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.041 or
   higher.
 - |AdvancedSearches.vim| plugin (vimscript #0000), version 1.00 or
   higher (optional integration).
@@ -161,6 +161,7 @@ HISTORY						  *SearchAlternatives-history*
 - ENH: Add :SearchAddAll{Literal,Whole,Pattern} commands (and
   :SearchAddAllAny[10]Whitespace variants if AdvancedSearches.vim is
   installed) to enable bulk addition from a range or register contents.
+  *** You need to update to ingo-library (vimscript #4433) version 1.041! ***
 
 1.11	31-Jan-2020
 - Abort :SearchRemove command on error.
