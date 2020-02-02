@@ -6,7 +6,7 @@ call vimtap#Plan(5)
 let @/ = 'nil'
 let @a = "one\ntwo"
 SearchAddAllWhole a
-call IsPattern('nil\|\<one\>\|\<two\>', 'add simple two-line range')
+call IsPattern('nil\|\<one\>\|\<two\>', 'add simple two-line register')
 
 let @/ = ''
 let @b = "foo/bar\\too\n^anchored$\n\\<fo\\+\\|\\(g[aeiou]\\)\\1\\>\nspecial^$and.*or[~]this#%&*"
