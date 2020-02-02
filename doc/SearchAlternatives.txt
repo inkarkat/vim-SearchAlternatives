@@ -157,6 +157,11 @@ below).
 ==============================================================================
 HISTORY						  *SearchAlternatives-history*
 
+1.20	02-Feb-2020
+- ENH: Add :SearchAddAll{Literal,Whole,Pattern} commands (and
+  :SearchAddAllAny[10]Whitespace variants if AdvancedSearches.vim is
+  installed) to enable bulk addition from a range or register contents.
+
 1.11	31-Jan-2020
 - Abort :SearchRemove command on error.
 - ENH: When adding a pattern (e.g. /foo/) when a shorter prefix (/fo/) already

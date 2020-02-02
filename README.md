@@ -58,6 +58,30 @@ USAGE
     :[N]SearchRemove        Remove the [N]'th / last alternative from the
                             alternatives in the search pattern.
 
+    :SearchAddAllLiteral {register} [/{pattern}/[{replacement}/][g]]
+    :{range}SearchAddAllLiteral [/{pattern}/[{replacement}/][g]]
+                            Convert all lines in {range} / [{register}]
+                            (optionally extracted via /{pattern}/ (first match or
+                            all matches with [g]) or modified via {replacement})
+                            to search for any line taken as literal text
+                            individually.
+    :SearchAddAllWhole {register} [/{pattern}/[{replacement}/][g]]
+    :{range}SearchAddAllWhole [/{pattern}/[{replacement}/][g]]
+                            Convert all lines in {range} / [{register}]
+                            (optionally extracted via /{pattern}/ (first match or
+                            all matches with [g]) or modified via {replacement})
+                            to search for any line taken as whole
+                            words or whole WORDs (depending on whether the line
+                            starts and ends with keyword or non-whitespace
+                            characters) individually.
+    :SearchAddAllPattern {register} [/{pattern}/[{replacement}/][g]]
+    :{range}SearchAddAllPattern [/{pattern}/[{replacement}/][g]]
+                            Convert all lines in {range} / [{register}]
+                            (optionally extracted via /{pattern}/ (first match or
+                            all matches with [g]) or modified via {replacement})
+                            to search for any line taken as regular
+                            expressions individually.
+
 INSTALLATION
 ------------------------------------------------------------------------------
 
@@ -82,6 +106,24 @@ To uninstall, use the :RmVimball command.
 - Requires Vim 7.0 or higher.
 - Requires the ingo-library.vim plugin ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)), version 1.035 or
   higher.
+- AdvancedSearches.vim plugin (unreleased), version 1.00 or
+  higher (optional integration).
+
+INTEGRATION
+------------------------------------------------------------------------------
+
+If AdvancedSearches.vim (unreleased) has been installed, two additional
+commands are available:
+:SearchAddAllAny1Whitespace {register} [/{pattern}/[{replacement}/][g]]
+:{range}SearchAddAllAny1Whitespace [/{pattern}/[{replacement}/][g]]
+                        Like :SearchAddAllLiteral, but ignore whitespace
+                        differences and comment prefixes, like <Leader>/_.
+:SearchAddAllAny0Whitespace {register} [/{pattern}/[{replacement}/][g]]
+:{range}SearchAddAllAny0Whitespace [/{pattern}/[{replacement}/][g]]
+                        Like :SearchAddAllLiteral, but ignore whitespace
+                        differences and comment prefixes, and also allow
+                        direct concatenation of lines (i.e. without
+                        any whitespace in between), like <Leader>/star.
 
 CONTRIBUTING
 ------------------------------------------------------------------------------
@@ -92,6 +134,11 @@ below).
 
 HISTORY
 ------------------------------------------------------------------------------
+
+##### 1.20    02-Feb-2020
+- ENH: Add :SearchAddAll{Literal,Whole,Pattern} commands (and
+  :SearchAddAllAny[10]Whitespace variants if AdvancedSearches.vim is
+  installed) to enable bulk addition from a range or register contents.
 
 ##### 1.11    31-Jan-2020
 - Abort :SearchRemove command on error.
