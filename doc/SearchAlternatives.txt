@@ -5,6 +5,7 @@
 description			|SearchAlternatives-description|
 usage				|SearchAlternatives-usage|
 installation			|SearchAlternatives-installation|
+integration			|SearchAlternatives-integration|
 limitations			|SearchAlternatives-limitations|
 known problems			|SearchAlternatives-known-problems|
 todo				|SearchAlternatives-todo|
@@ -119,6 +120,24 @@ DEPENDENCIES				     *SearchAlternatives-dependencies*
 - Requires Vim 7.0 or higher.
 - Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.035 or
   higher.
+- |AdvancedSearches.vim| plugin (vimscript #0000), version 1.00 or
+  higher (optional integration).
+
+==============================================================================
+INTEGRATION				      *SearchAlternatives-integration*
+
+If AdvancedSearches.vim (vimscript #0000) has been installed, two additional
+commands are available:
+:SearchAddAllAny1Whitespace {register} [/{pattern}/[{replacement}/][g]]
+:{range}SearchAddAllAny1Whitespace [/{pattern}/[{replacement}/][g]]
+			Like |:SearchAddAllLiteral|, but ignore whitespace
+			differences and comment prefixes, like |<Leader>/_|.
+:SearchAddAllAny0Whitespace {register} [/{pattern}/[{replacement}/][g]]
+:{range}SearchAddAllAny0Whitespace [/{pattern}/[{replacement}/][g]]
+			Like |:SearchAddAllLiteral|, but ignore whitespace
+			differences and comment prefixes, and also allow
+			direct concatenation of lines (i.e. without
+			any whitespace in between), like |<Leader>/star|.
 
 ==============================================================================
 LIMITATIONS				      *SearchAlternatives-limitations*
